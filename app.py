@@ -531,6 +531,27 @@ def update_order_status():
         logger.error(f"Error updating order status: {str(e)}")
         return jsonify({'success': False, 'message': str(e)}), 500
 
+@app.route('/', methods=['GET'])
+def root():
+    """Root endpoint - API information"""
+    return jsonify({
+        'success': True,
+        'message': 'BrewMaster API is running',
+        'version': '1.0.0',
+        'endpoints': {
+            'health': '/health',
+            'register': '/register (POST)',
+            'login': '/login (POST)',
+            'order': '/order (POST)',
+            'order_history': '/orders/history/<email> (GET)',
+            'order_status': '/orders/status/<email> (GET)',
+            'update_order_status': '/orders/update-status (POST)',
+            'generate_qr': '/generate-qr (POST)',
+            'test': '/test (GET/POST)',
+            'debug_users': '/debug/users (GET)'
+        }
+    })
+
 @app.route('/health', methods=['GET'])
 def health_check():
     try:
